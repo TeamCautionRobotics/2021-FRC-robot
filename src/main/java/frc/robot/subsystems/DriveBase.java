@@ -58,6 +58,8 @@ public class DriveBase extends SubsystemBase {
       if (power > motorPowerLimitAmount) {
         power = motorPowerLimitAmount;
         return power;
+      } else {
+        return power;
       }
     } else {
       return power;
