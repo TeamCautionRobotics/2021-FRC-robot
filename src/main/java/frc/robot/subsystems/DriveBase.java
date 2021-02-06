@@ -79,7 +79,7 @@ public class DriveBase extends SubsystemBase {
   }
 
   public void setRightPower(double power) {
-    rightDrive.set(-(checkPowerLimit(power)));
+    rightDrive.set(checkPowerLimit(power));
   }
 
   public void setCenterPower(double power) {

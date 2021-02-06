@@ -62,6 +62,9 @@ public class RobotContainer {
     rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
     centerDriveGroup = new SpeedControllerGroup(centerDrive0, centerDrive1);
 
+    rightDrive0.setInverted(true);
+    rightDrive1.setInverted(true);
+
     driveBase = new DriveBase(leftDriveGroup, rightDriveGroup, centerDriveGroup, 
                               Constants.LEFT_DRIVE_ENCODER_PORT_A, Constants.LEFT_DRIVE_ENCODER_PORT_B,
                               Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
