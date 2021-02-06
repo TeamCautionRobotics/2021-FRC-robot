@@ -54,7 +54,7 @@ public class DriveBase extends SubsystemBase {
   }
 
   public void setRightPower(double power) {
-    rightDrive.set(power);
+    rightDrive.set(-power);
   }
 
   public void setCenterPower(double power) {
