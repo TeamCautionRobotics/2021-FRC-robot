@@ -8,7 +8,7 @@ import frc.robot.subsystems.DriveBase;
 import java.util.function.DoubleSupplier;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class TankDrive extends CommandBase {
+public class ArcadeDrive extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   
   private final DriveBase driveBase;
@@ -20,11 +20,13 @@ public class TankDrive extends CommandBase {
   private DoubleSupplier rightJoystickY;
 
   /**
-   * Creates a new ExampleCommand.
+   * Creates a new arcadeDrive command.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param driveBase The subsystem used by this command.
    */
-  public TankDrive(DriveBase driveBase, DoubleSupplier leftJoystickX, DoubleSupplier leftJoystickY, DoubleSupplier rightJoystickX, DoubleSupplier rightJoystickY) {
+  public ArcadeDrive(DriveBase driveBase, 
+                    DoubleSupplier leftJoystickX, DoubleSupplier leftJoystickY, 
+                    DoubleSupplier rightJoystickX, DoubleSupplier rightJoystickY) {
 
     this.driveBase = driveBase;
 
@@ -34,7 +36,6 @@ public class TankDrive extends CommandBase {
     this.rightJoystickX = rightJoystickX;
     this.rightJoystickY = rightJoystickY;
 
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveBase);
   }
 
@@ -45,29 +46,12 @@ public class TankDrive extends CommandBase {
   @Override
   public void execute() {
 
-    if (leftJoystickY.getAsDouble() > 0.5) {
-      driveBase.setLeftPower(0.5);
-    } if (leftJoystickY.getAsDouble() < -0.5) {
-      driveBase.setLeftPower(-0.5);
-    } else {
-      driveBase.setLeftPower(leftJoystickY.getAsDouble());
-    }
-
-    if (rightJoystickY.getAsDouble() > 0.5) {
-      driveBase.setRightPower(0.5);
-    } if (rightJoystickY.getAsDouble() < -0.5) {
-      driveBase.setRightPower(-0.5);
-    } else {
-      driveBase.setRightPower(rightJoystickY.getAsDouble());
-    }
-
-    if (leftJoystickX.getAsDouble() > 0.5) {
-      driveBase.setCenterPower(0.5);
-    } if (leftJoystickX.getAsDouble() < -0.5) {
-      driveBase.setCenterPower(-0.5);
-    } else {
-      driveBase.setCenterPower(leftJoystickX.getAsDouble());
-    }
+    driveBase.setLeftPower(rightJoystickY.getAsDouble()+leftJoystickX.getAsDouble());
+    driveBase.setRightPower(rightJoystickY.getAsDouble()-leftJoystickX.getAsDouble());
+    
+    // Uncomment below to enable H-Drive
+    
+    // driveBase.setCenterPower(rightJoystickX.getAsDouble());
 
   }
 
