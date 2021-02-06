@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveBase extends SubsystemBase {
 
+  private boolean motorPowerLimitActive = false;
+  private double motorPowerLimitAmount = 0.0;
+
   private final SpeedControllerGroup leftDrive;
   private final SpeedControllerGroup rightDrive;
   private final SpeedControllerGroup centerDrive;
@@ -49,16 +52,36 @@ public class DriveBase extends SubsystemBase {
 
   }
 
+  // Check that the motor power has not exceeded a set limit 
+  private double checkPowerLimit(double power) {
+    if (motorPowerLimitActive) {
+      if (power > motorPowerLimitAmount) {
+        power = motorPowerLimitAmount;
+        return power;
+      }
+    } else {
+      return power;
+    }
+  }
+
+  public void setPowerLimitState(boolean state) {
+      motorPowerLimitActive = state;
+  }
+
+  public boolean getPowerLimitState() {
+    return motorPowerLimitActive;
+  }
+
   public void setLeftPower(double power) {
-    leftDrive.set(power);
+    leftDrive.set(checkPowerLimit(power));
   }
 
   public void setRightPower(double power) {
-    rightDrive.set(-power);
+    rightDrive.set(-(checkPowerLimit(power)));
   }
 
   public void setCenterPower(double power) {
-    centerDrive.set(power);
+    centerDrive.set(checkPowerLimit(power));
   }
 
   public void resetGyro() {
