@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.misc2021.EnhancedJoystick;
@@ -25,12 +27,41 @@ public class RobotContainer {
   EnhancedJoystick leftJoystick;
   EnhancedJoystick rightJoystick;
 
+  SpeedControllerGroup leftDriveGroup;
+  SpeedControllerGroup rightDriveGroup;
+  SpeedControllerGroup centerDriveGroup;
+
+  VictorSP leftDrive0;
+  VictorSP leftDrive1;
+
+  VictorSP rightDrive0;
+  VictorSP rightDrive1;
+
+  VictorSP centerDrive0;
+  VictorSP centerDrive1;
+
   DriveBase driveBase;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
-    driveBase = new DriveBase()
+    leftJoystick = new EnhancedJoystick(Constants.LEFT_JOYSTICK_PORT);
+    rightJoystick = new EnhancedJoystick(Constants.RIGHT_JOYSTICK_PORT);
+
+    leftDrive0 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_0_ID);
+    leftDrive1 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_1_ID);
+
+    rightDrive0 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_0_ID);
+    rightDrive1 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_1_ID);
+
+    centerDrive0 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_0_ID);
+    centerDrive1 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_1_ID);
+
+    leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
+    rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
+    centerDriveGroup = new SpeedControllerGroup(centerDrive0, centerDrive1);
+
+    driveBase = new DriveBase();
 
     // Configure the button bindings
     configureButtonBindings();
