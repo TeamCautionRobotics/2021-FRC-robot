@@ -6,15 +6,15 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.VictorSP;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveBase extends SubsystemBase {
 
-  private final VictorSP leftDrive;
-  private final VictorSP rightDrive;
-  private final VictorSP centerDrive;
+  private final SpeedControllerGroup leftDrive;
+  private final SpeedControllerGroup rightDrive;
+  private final SpeedControllerGroup centerDrive;
 
   private final Encoder leftEncoder;
   private final Encoder rightEncoder;
@@ -27,12 +27,12 @@ public class DriveBase extends SubsystemBase {
   private double heading;
   public double courseHeading;
 
-  public DriveBase(int leftDriveChannel, int rightDriveChannel, int centerDriveChannel, int leftEncoderChannelA, int leftEncoderChannelB, 
+  public DriveBase(SpeedControllerGroup leftDrive, SpeedControllerGroup rightDrive, SpeedControllerGroup centerDrive, int leftEncoderChannelA, int leftEncoderChannelB, 
                   int rightEncoderChannelA, int rightEncoderChannelB, int centerEncoderChannelA, int centerEncoderChannelB) {
 
-    leftDrive = new VictorSP(leftDriveChannel);
-    rightDrive = new VictorSP(rightDriveChannel);
-    centerDrive = new VictorSP(centerDriveChannel);
+    this.leftDrive = leftDrive;
+    this.rightDrive = rightDrive;
+    this.centerDrive = centerDrive;
 
     leftEncoder = new Encoder(leftEncoderChannelA, leftEncoderChannelB, false, EncodingType.k4X);
     rightEncoder = new Encoder(rightEncoderChannelA, rightEncoderChannelB, true, EncodingType.k4X);
@@ -123,7 +123,7 @@ public class DriveBase extends SubsystemBase {
     return rightEncoder.getRate();
   }
 
-  
+
   // Stuff below kept just in case we need them. Probably won't.
   @Override
   public void periodic() {
