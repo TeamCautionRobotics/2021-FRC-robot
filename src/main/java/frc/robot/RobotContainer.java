@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.TankDrive;
+import frc.robot.commands.ArcadeDrive;
 import frc.robot.misc2021.EnhancedJoystick;
 import frc.robot.subsystems.DriveBase;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -41,7 +41,7 @@ public class RobotContainer {
 
   DriveBase driveBase;
 
-  TankDrive tankDriveCommand;
+  ArcadeDrive arcadeDriveCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -70,7 +70,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    driveBase.setDefaultCommand(new TankDrive(driveBase, () -> leftJoystick.getX(), () -> leftJoystick.getY(), 
+    driveBase.setDefaultCommand(new ArcadeDrive(driveBase, () -> leftJoystick.getX(), () -> leftJoystick.getY(), 
     () -> rightJoystick.getX(), () -> rightJoystick.getY()));
   }
 
