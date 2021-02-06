@@ -49,6 +49,82 @@ public class DriveBase extends SubsystemBase {
 
   }
 
+  public void setLeftPower(double power) {
+    leftDrive.set(power);
+  }
+
+  public void setRightPower(double power) {
+    rightDrive.set(power);
+  }
+
+  public void setCenterPower(double power) {
+    centerDrive.set(power);
+  }
+
+  public void resetGyro() {
+    gyro.reset();
+  }
+
+  public double getGyroAngle() {
+    return gyro.getAngle();
+  }
+
+  public void resetEncoders() {
+    leftEncoder.reset();
+    rightEncoder.reset();
+    centerEncoder.reset();
+  }
+
+  public boolean usingLeftEncoder () {
+    return usingLeftEncoder;
+  }
+
+  public void setUsingLeftEncoder(boolean usingLeftEncoder) {
+    this.usingLeftEncoder = usingLeftEncoder;
+  }
+
+  public double getForwardDistance() {
+    if (usingLeftEncoder) {
+      return getLeftDistance();
+    } else {
+      return getRightDistance();
+    }
+  }
+
+  public double getCenterDistance() {
+    return centerEncoder.getDistance();
+  }
+
+  public double getForwardSpeed() {
+    if (usingLeftEncoder) {
+      return getLeftSpeed();
+    } else {
+      return getRightSpeed();
+    }
+  }
+
+  public double getCenterSpeed() {
+    return centerEncoder.getRate();
+  }
+
+  public double getLeftDistance() {
+    return leftEncoder.getDistance();
+  }
+
+  public double getRightDistance() {
+    return rightEncoder.getDistance();
+  }
+
+  public double getLeftSpeed() {
+    return leftEncoder.getRate();
+  }
+
+  public double getRightSpeed() {
+    return rightEncoder.getRate();
+  }
+
+  
+  // Stuff below kept just in case we need them. Probably won't.
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
