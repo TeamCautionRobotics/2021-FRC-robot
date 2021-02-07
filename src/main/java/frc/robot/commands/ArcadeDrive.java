@@ -48,10 +48,7 @@ public class ArcadeDrive extends CommandBase {
 
     driveBase.setLeftPower(rightJoystickY.getAsDouble()+leftJoystickX.getAsDouble());
     driveBase.setRightPower(rightJoystickY.getAsDouble()-leftJoystickX.getAsDouble());
-    
-    // Uncomment below to enable H-Drive
-    
-    // driveBase.setCenterPower(rightJoystickX.getAsDouble());
+    driveBase.setCenterPower(rightJoystickX.getAsDouble());
 
   }
 
