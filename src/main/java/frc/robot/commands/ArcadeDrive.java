@@ -48,6 +48,7 @@ public class ArcadeDrive extends CommandBase {
 
     driveBase.setLeftPower(rightJoystickY.getAsDouble()+leftJoystickX.getAsDouble());
     driveBase.setRightPower(rightJoystickY.getAsDouble()-leftJoystickX.getAsDouble());
+    
     driveBase.setCenterPower(rightJoystickX.getAsDouble());
 
   }
