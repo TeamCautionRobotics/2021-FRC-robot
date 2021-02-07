@@ -55,15 +55,15 @@ public class DriveBase extends SubsystemBase {
   // Check that the motor power has not exceeded a set limit 
   private double checkPowerLimit(double power) {
     if (motorPowerLimitActive) {
+
       if (power > motorPowerLimitAmount) {
         power = motorPowerLimitAmount;
-        return power;
-      } else {
-        return power;
-      }
-    } else {
-      return power;
-    }
+      } else if (power < -motorPowerLimitAmount) {
+        power = -motorPowerLimitAmount;
+      } 
+    } 
+
+    return power;
   }
 
   public void setPowerLimitState(boolean state) {
