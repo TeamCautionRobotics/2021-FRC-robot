@@ -74,6 +74,7 @@ public class DriveBase extends SubsystemBase {
     return motorPowerLimitActive;
   }
 
+  // Set motor powers and check the limits
   public void setLeftPower(double power) {
     leftDrive.set(checkPowerLimit(power));
   }
@@ -94,6 +95,7 @@ public class DriveBase extends SubsystemBase {
     return gyro.getAngle();
   }
 
+  // Reset all encoders
   public void resetEncoders() {
     leftEncoder.reset();
     rightEncoder.reset();
@@ -104,6 +106,7 @@ public class DriveBase extends SubsystemBase {
     return usingLeftEncoder;
   }
 
+  // Sets whether we want to use the left encoder or not
   public void setUsingLeftEncoder(boolean usingLeftEncoder) {
     this.usingLeftEncoder = usingLeftEncoder;
   }

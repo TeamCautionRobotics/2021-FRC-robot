@@ -46,15 +46,20 @@ public class ArcadeDrive extends CommandBase {
   @Override
   public void execute() {
 
+    // Arcade drive
     driveBase.setLeftPower(rightJoystickY.getAsDouble()+leftJoystickX.getAsDouble());
     driveBase.setRightPower(rightJoystickY.getAsDouble()-leftJoystickX.getAsDouble());
     
+    // Use right joystick's X axis for center drive
     driveBase.setCenterPower(rightJoystickX.getAsDouble());
 
   }
 
   @Override
   public void end(boolean interrupted) {
+
+    // Stop all motors if command is killed
+
     driveBase.setLeftPower(0);
     driveBase.setRightPower(0);
     driveBase.setCenterPower(0);
