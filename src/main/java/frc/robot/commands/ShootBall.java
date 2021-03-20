@@ -27,7 +27,9 @@ public class ShootBall extends CommandBase {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooter.setFlywheelPower(0.0);
+  }
 
   @Override
   public boolean isFinished() {

@@ -29,7 +29,9 @@ public class IndexBall extends CommandBase {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooter.setIndexerPower(0.0);
+  }
 
   @Override
   public boolean isFinished() {
