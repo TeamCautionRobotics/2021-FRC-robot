@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.DropIntake;
 import frc.robot.commands.IndexBall;
 import frc.robot.commands.IntakeRun;
 import frc.robot.commands.ShootBall;
@@ -112,9 +113,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(leftJoystick, 3).toggleWhenPressed(new IntakeRun(intake));
-    new JoystickButton(rightJoystick, 1).toggleWhenPressed(new IndexBall(shooter));
-    new JoystickButton(leftJoystick, 1).toggleWhenPressed(new ShootBall(shooter));
+    new JoystickButton(leftJoystick, 3).toggleWhenActive(new IntakeRun(intake), false);
+    new JoystickButton(leftJoystick, 2).toggleWhenPressed(new DropIntake(intake));
+    new JoystickButton(rightJoystick, 1).toggleWhenActive(new IndexBall(shooter), false);
+    new JoystickButton(leftJoystick, 1).toggleWhenActive(new ShootBall(shooter), false);
 
   }
 
