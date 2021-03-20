@@ -29,10 +29,18 @@ public class DropIntake extends CommandBase {
   @Override
   public void initialize() {
 
+    finishedState = false;
     dropTimer.reset();
     dropTimer.start();
+
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+
     if (dropTimer.get() < 0.5 ) {
-      intakeSubsystem.setIntakeWheelPower(0.5);
+      intakeSubsystem.setIntakeWheelPower(1);
     } else {
       intakeSubsystem.setIntakeWheelPower(0);
       finishedState = true;
@@ -40,15 +48,11 @@ public class DropIntake extends CommandBase {
 
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-  }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intakeSubsystem.setIntakeWheelPower(0);
+    dropTimer.reset();
   }
 
   // Returns true when the command should end.

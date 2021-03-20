@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Intake extends SubsystemBase {
 
   private boolean motorPowerLimitActive = false;
-  private double motorPowerLimitAmount = 0.0;
+  private double motorPowerLimitAmount = 1.0;
 
   private final SpeedControllerGroup intakeWheelMotor;
 

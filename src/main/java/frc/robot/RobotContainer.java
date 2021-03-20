@@ -38,6 +38,7 @@ public class RobotContainer {
   SpeedControllerGroup centerDriveGroup;
   SpeedControllerGroup intakeWheelGroup;
   SpeedControllerGroup shooterFlywheelGroup;
+  SpeedControllerGroup indexerMotorGroup;
 
   VictorSP leftDrive0;
   VictorSP leftDrive1;
@@ -52,6 +53,8 @@ public class RobotContainer {
 
   VictorSP leftFlywheelMotor;
   VictorSP rightFlywheelMotor;
+
+  VictorSP indexerMotor;
 
   DriveBase driveBase;
   Shooter shooter;
@@ -79,11 +82,14 @@ public class RobotContainer {
     leftFlywheelMotor = new VictorSP(Constants.LEFT_FLYWHEEL_MOTOR_0_ID);
     rightFlywheelMotor = new VictorSP(Constants.RIGHT_FLYWHEEL_MOTOR_0_ID);
 
+    indexerMotor = new VictorSP(Constants.INDEXER_MOTOR_0_ID);
+
     leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
     rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
     centerDriveGroup = new SpeedControllerGroup(centerDrive0, centerDrive1);
     intakeWheelGroup = new SpeedControllerGroup(intakeWheelMotor);
     shooterFlywheelGroup = new SpeedControllerGroup(leftFlywheelMotor, rightFlywheelMotor);
+    indexerMotorGroup = new SpeedControllerGroup(indexerMotor);
 
     rightDrive0.setInverted(true);
     rightDrive1.setInverted(true);
@@ -91,12 +97,21 @@ public class RobotContainer {
     centerDrive0.setInverted(true);
     centerDrive1.setInverted(true);
 
+    intakeWheelMotor.setInverted(true);
+    
+    leftFlywheelMotor.setInverted(true);
+    rightFlywheelMotor.setInverted(true);
+
+    indexerMotor.setInverted(true);
+
     driveBase = new DriveBase(leftDriveGroup, rightDriveGroup, centerDriveGroup, 
                               Constants.LEFT_DRIVE_ENCODER_PORT_A, Constants.LEFT_DRIVE_ENCODER_PORT_B,
                               Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
                               Constants.CENTER_DRIVE_ENCODER_PORT_A, Constants.CENTER_DRIVE_ENCODER_PORT_B);
 
     intake = new Intake(intakeWheelGroup);
+
+    shooter = new Shooter(shooterFlywheelGroup, indexerMotorGroup);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -113,10 +128,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(leftJoystick, 3).toggleWhenActive(new IntakeRun(intake), false);
-    new JoystickButton(leftJoystick, 2).toggleWhenPressed(new DropIntake(intake));
-    new JoystickButton(rightJoystick, 1).toggleWhenActive(new IndexBall(shooter), false);
-    new JoystickButton(leftJoystick, 1).toggleWhenActive(new ShootBall(shooter), false);
+    new JoystickButton(leftJoystick, 3).whileActiveContinuous(new IntakeRun(intake));
+    new JoystickButton(leftJoystick, 2).whenActive(new DropIntake(intake));
+    new JoystickButton(rightJoystick, 1).whileActiveContinuous(new IndexBall(shooter));
+    new JoystickButton(leftJoystick, 1).whileActiveContinuous(new ShootBall(shooter));
 
   }
 

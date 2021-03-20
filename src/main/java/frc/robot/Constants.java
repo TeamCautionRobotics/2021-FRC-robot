@@ -26,10 +26,12 @@ public final class Constants {
     public static final int CENTER_DRIVE_MOTOR_0_ID = 4;
     public static final int CENTER_DRIVE_MOTOR_1_ID = 5;
 
-    public static final int INTAKE_WHEEL_MOTOR_0_ID = 6;
+    public static final int INTAKE_WHEEL_MOTOR_0_ID = 8;
 
     public static final int LEFT_FLYWHEEL_MOTOR_0_ID = 7;
-    public static final int RIGHT_FLYWHEEL_MOTOR_0_ID = 8;
+    public static final int RIGHT_FLYWHEEL_MOTOR_0_ID = 9;
+
+    public static final int INDEXER_MOTOR_0_ID = 6;
 
     public static final int LEFT_DRIVE_ENCODER_PORT_A = 0;
     public static final int LEFT_DRIVE_ENCODER_PORT_B = 1;

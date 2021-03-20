@@ -21,16 +21,17 @@ public class IndexBall extends CommandBase {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   @Override
   public void execute() {
-    shooter.setIndexerPower(0.1);
+    shooter.setIndexerPower(1.0);
   }
 
   @Override
   public void end(boolean interrupted) {
-    shooter.setIndexerPower(0.0);
+     shooter.setIndexerPower(0.0);
   }
 
   @Override

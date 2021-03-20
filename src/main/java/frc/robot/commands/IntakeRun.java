@@ -23,7 +23,7 @@ public class IntakeRun extends CommandBase {
 
   @Override
   public void execute() {
-    intakeSubsystem.setIntakeWheelPower(0.1);
+    intakeSubsystem.setIntakeWheelPower(0.7);
   }
 
   @Override
