@@ -28,8 +28,10 @@ public class LimelightTest extends CommandBase {
 
   @Override
   public void execute() {
-    SmartDashboard.putNumber("limelight tx", limelight.getTx());
     SmartDashboard.putNumber("limelight tv", limelight.getTv());
+    SmartDashboard.putNumber("limelight tx", limelight.getTx());
+    SmartDashboard.putNumber("limelight ty", limelight.getTy());
+    SmartDashboard.putNumber("limelight ta", limelight.getTa());
   }
 
   @Override
