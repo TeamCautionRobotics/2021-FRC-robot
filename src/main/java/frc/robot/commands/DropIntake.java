@@ -39,7 +39,7 @@ public class DropIntake extends CommandBase {
   @Override
   public void execute() {
 
-    if (dropTimer.get() < 0.5 ) {
+    if (dropTimer.get() < 0.3 ) {
       intakeSubsystem.setIntakeWheelPower(1);
     } else {
       intakeSubsystem.setIntakeWheelPower(0);
