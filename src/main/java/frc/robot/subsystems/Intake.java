@@ -24,6 +24,13 @@ public class Intake extends SubsystemBase {
 
   }
 
+  public Intake(SpeedControllerGroup intakeWheelMotor) {
+
+    this.intakeWheelMotor = intakeWheelMotor;
+    this.intakeLevelMotor = null;
+
+  }
+
   // Check that the motor power has not exceeded a set limit 
   private double checkPowerLimit(double power) {
     if (motorPowerLimitActive) {
