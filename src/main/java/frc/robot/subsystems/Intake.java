@@ -12,6 +12,8 @@ public class Intake extends SubsystemBase {
   private boolean motorPowerLimitActive = false;
   private double motorPowerLimitAmount = 0.0;
 
+  private boolean usingLevelMotor = true;
+
   private final SpeedControllerGroup intakeLevelMotor;
   private final SpeedControllerGroup intakeWheelMotor;
 
@@ -20,6 +22,15 @@ public class Intake extends SubsystemBase {
 
     this.intakeLevelMotor = intakeLevelMotor;
     this.intakeWheelMotor = intakeWheelMotor;
+
+  }
+
+  public Intake(SpeedControllerGroup intakeWheelMotor) {
+
+    this.intakeWheelMotor = intakeWheelMotor;
+    this.intakeLevelMotor = null;
+
+    usingLevelMotor = false;
 
   }
 
@@ -38,7 +49,9 @@ public class Intake extends SubsystemBase {
   }
 
   public void setIntakeLevelPower(double power) {
-    intakeLevelMotor.set(checkPowerLimit(power));
+    if (usingLevelMotor) {
+      intakeLevelMotor.set(checkPowerLimit(power));
+    }
   }
 
   public void setIntakeWheelPower(double power) {
