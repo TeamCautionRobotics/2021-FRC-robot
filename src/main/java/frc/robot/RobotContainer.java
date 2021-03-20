@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.misc2021.EnhancedJoystick;
 import frc.robot.subsystems.DriveBase;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
@@ -29,6 +31,8 @@ public class RobotContainer {
   SpeedControllerGroup leftDriveGroup;
   SpeedControllerGroup rightDriveGroup;
   SpeedControllerGroup centerDriveGroup;
+  SpeedControllerGroup intakeWheelGroup;
+  SpeedControllerGroup shooterFlywheelGroup;
 
   VictorSP leftDrive0;
   VictorSP leftDrive1;
@@ -39,7 +43,14 @@ public class RobotContainer {
   VictorSP centerDrive0;
   VictorSP centerDrive1;
 
+  VictorSP intakeWheelMotor;
+
+  VictorSP leftFlywheelMotor;
+  VictorSP rightFlywheelMotor;
+  
   DriveBase driveBase;
+  Shooter shooter;
+  Intake intake;
 
   ArcadeDrive arcadeDriveCommand;
 
@@ -58,9 +69,16 @@ public class RobotContainer {
     centerDrive0 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_0_ID);
     centerDrive1 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_1_ID);
 
+    intakeWheelMotor = new VictorSP(Constants.INTAKE_WHEEL_MOTOR_0_ID);
+
+    leftFlywheelMotor = new VictorSP(Constants.LEFT_FLYWHEEL_MOTOR_0_ID);
+    rightFlywheelMotor = new VictorSP(Constants.RIGHT_FLYWHEEL_MOTOR_0_ID);
+
     leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
     rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
     centerDriveGroup = new SpeedControllerGroup(centerDrive0, centerDrive1);
+    intakeWheelGroup = new SpeedControllerGroup(intakeWheelMotor);
+    shooterFlywheelGroup = new SpeedControllerGroup(leftFlywheelMotor, rightFlywheelMotor);
 
     rightDrive0.setInverted(true);
     rightDrive1.setInverted(true);
@@ -72,6 +90,8 @@ public class RobotContainer {
                               Constants.LEFT_DRIVE_ENCODER_PORT_A, Constants.LEFT_DRIVE_ENCODER_PORT_B,
                               Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
                               Constants.CENTER_DRIVE_ENCODER_PORT_A, Constants.CENTER_DRIVE_ENCODER_PORT_B);
+
+    intake = new Intake(intakeWheelGroup);
 
     // Configure the button bindings
     configureButtonBindings();
