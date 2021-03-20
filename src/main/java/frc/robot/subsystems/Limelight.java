@@ -15,6 +15,10 @@ public class Limelight extends SubsystemBase {
 
   }
 
+  private void setVar(String var, int data) {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry(var).setNumber(data);
+  }
+
   public double getTv() {
     return tv;
   }
@@ -33,6 +37,14 @@ public class Limelight extends SubsystemBase {
 
   public double getTs() {
     return ts;
+  }
+
+  public void setLedMode(int mode) {
+    setVar("ledMode", mode);
+  }
+
+  public void setPipeline(int pipeline) {
+    setVar("pipeline", pipeline);
   }
 
   @Override
