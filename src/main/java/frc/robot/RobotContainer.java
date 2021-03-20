@@ -5,10 +5,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.ArcadeDrive;
+import frc.robot.misc2021.EnhancedJoystick;
+import frc.robot.subsystems.DriveBase;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,14 +22,62 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  EnhancedJoystick leftJoystick;
+  EnhancedJoystick rightJoystick;
+
+  SpeedControllerGroup leftDriveGroup;
+  SpeedControllerGroup rightDriveGroup;
+  SpeedControllerGroup centerDriveGroup;
+
+  VictorSP leftDrive0;
+  VictorSP leftDrive1;
+
+  VictorSP rightDrive0;
+  VictorSP rightDrive1;
+
+  VictorSP centerDrive0;
+  VictorSP centerDrive1;
+
+  DriveBase driveBase;
+
+  ArcadeDrive arcadeDriveCommand;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+
+    leftJoystick = new EnhancedJoystick(Constants.LEFT_JOYSTICK_PORT);
+    rightJoystick = new EnhancedJoystick(Constants.RIGHT_JOYSTICK_PORT);
+
+    leftDrive0 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_0_ID);
+    leftDrive1 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_1_ID);
+
+    rightDrive0 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_0_ID);
+    rightDrive1 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_1_ID);
+
+    centerDrive0 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_0_ID);
+    centerDrive1 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_1_ID);
+
+    leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
+    rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
+    centerDriveGroup = new SpeedControllerGroup(centerDrive0, centerDrive1);
+
+    rightDrive0.setInverted(true);
+    rightDrive1.setInverted(true);
+
+    centerDrive0.setInverted(true);
+    centerDrive1.setInverted(true);
+
+    driveBase = new DriveBase(leftDriveGroup, rightDriveGroup, centerDriveGroup, 
+                              Constants.LEFT_DRIVE_ENCODER_PORT_A, Constants.LEFT_DRIVE_ENCODER_PORT_B,
+                              Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
+                              Constants.CENTER_DRIVE_ENCODER_PORT_A, Constants.CENTER_DRIVE_ENCODER_PORT_B);
+
     // Configure the button bindings
     configureButtonBindings();
+
+    driveBase.setDefaultCommand(new ArcadeDrive(driveBase, () -> leftJoystick.getX(), () -> leftJoystick.getY(), 
+    () -> rightJoystick.getX(), () -> rightJoystick.getY()));
   }
 
   /**
@@ -42,7 +94,9 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    
+    // Do nothing in autonomous.
+
+    return new InstantCommand();
   }
 }
