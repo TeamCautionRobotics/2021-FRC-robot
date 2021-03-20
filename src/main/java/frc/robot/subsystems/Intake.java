@@ -13,21 +13,12 @@ public class Intake extends SubsystemBase {
   private double motorPowerLimitAmount = 0.0;
 
   private final SpeedControllerGroup intakeWheelMotor;
-  private final SpeedControllerGroup intakeLevelMotor;
 
   /** Creates a new Intake subsystem. */
-
-  public Intake(SpeedControllerGroup intakeWheelMotor, SpeedControllerGroup intakeLevelMotor) {
-
-    this.intakeWheelMotor = intakeWheelMotor;
-    this.intakeLevelMotor = intakeLevelMotor;
-
-  }
 
   public Intake(SpeedControllerGroup intakeWheelMotor) {
 
     this.intakeWheelMotor = intakeWheelMotor;
-    this.intakeLevelMotor = null;
 
   }
 
@@ -47,10 +38,6 @@ public class Intake extends SubsystemBase {
 
   public void setIntakeWheelPower(double power) {
     intakeWheelMotor.set(checkPowerLimit(power));
-  }
-
-  public void setIntakeLevelPower(double power) {
-    intakeLevelMotor.set(checkPowerLimit(power));
   }
 
   @Override
