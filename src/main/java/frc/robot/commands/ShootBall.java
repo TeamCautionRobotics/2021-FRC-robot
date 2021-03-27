@@ -24,7 +24,7 @@ public class ShootBall extends CommandBase {
 
   @Override
   public void execute() {
-    shooter.setFlywheelPower(0.1);
+    shooter.setFlywheelPower(0.7);
   }
 
   @Override

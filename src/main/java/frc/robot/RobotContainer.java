@@ -99,7 +99,6 @@ public class RobotContainer {
 
     intakeWheelMotor.setInverted(true);
     
-    leftFlywheelMotor.setInverted(true);
     rightFlywheelMotor.setInverted(true);
 
     indexerMotor.setInverted(true);
