@@ -18,13 +18,13 @@ public final class Constants {
     public static final int RIGHT_JOYSTICK_PORT = 1;
 
     public static final int LEFT_DRIVE_MOTOR_0_ID = 0;
-    public static final int LEFT_DRIVE_MOTOR_1_ID = 1;
+    public static final int LEFT_DRIVE_MOTOR_1_CAN_ID = 10;
 
     public static final int RIGHT_DRIVE_MOTOR_0_ID = 2;
     public static final int RIGHT_DRIVE_MOTOR_1_ID = 3;
 
     public static final int CENTER_DRIVE_MOTOR_0_ID = 4;
-    public static final int CENTER_DRIVE_MOTOR_1_ID = 5;
+    public static final int CENTER_DRIVE_MOTOR_1_CAN_ID = 30;
 
     public static final int LEFT_DRIVE_ENCODER_PORT_A = 0;
     public static final int LEFT_DRIVE_ENCODER_PORT_B = 1;

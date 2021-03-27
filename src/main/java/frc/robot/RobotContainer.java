@@ -50,13 +50,13 @@ public class RobotContainer {
     rightJoystick = new EnhancedJoystick(Constants.RIGHT_JOYSTICK_PORT);
 
     leftDrive0 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_0_ID);
-    leftDrive1 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_1_ID);
+    leftDrive1 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_1_CAN_ID);
 
     rightDrive0 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_0_ID);
     rightDrive1 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_1_ID);
 
     centerDrive0 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_0_ID);
-    centerDrive1 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_1_ID);
+    centerDrive1 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_1_CAN_ID);
 
     leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
     rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
