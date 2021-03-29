@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -31,13 +33,13 @@ public class RobotContainer {
   SpeedControllerGroup centerDriveGroup;
 
   VictorSP leftDrive0;
-  VictorSP leftDrive1;
+  WPI_VictorSPX leftDrive1;
 
   VictorSP rightDrive0;
   VictorSP rightDrive1;
 
   VictorSP centerDrive0;
-  VictorSP centerDrive1;
+  WPI_VictorSPX centerDrive1;
 
   DriveBase driveBase;
 
@@ -50,13 +52,13 @@ public class RobotContainer {
     rightJoystick = new EnhancedJoystick(Constants.RIGHT_JOYSTICK_PORT);
 
     leftDrive0 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_0_ID);
-    leftDrive1 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_1_CAN_ID);
+    leftDrive1 = new WPI_VictorSPX(Constants.LEFT_DRIVE_MOTOR_1_CAN_ID);
 
     rightDrive0 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_0_ID);
     rightDrive1 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_1_ID);
 
     centerDrive0 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_0_ID);
-    centerDrive1 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_1_CAN_ID);
+    centerDrive1 = new WPI_VictorSPX(Constants.CENTER_DRIVE_MOTOR_1_CAN_ID);
 
     leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
     rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);

@@ -1,6 +1,38 @@
+# Created by https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode
 
-# Created by https://www.toptal.com/developers/gitignore/api/java,vscode,linux,macos,windows,gradle
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,vscode,linux,macos,windows,gradle
+### C++ ###
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
 
 ### Java ###
 # Compiled class file
@@ -49,7 +81,7 @@ hs_err_pid*
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
 
 # Thumbnails
 ._*
@@ -70,18 +102,16 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-### vscode ###
+### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-*.code-workspace
 
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
-Thumbs.db:encryptable
 ehthumbs.db
 ehthumbs_vista.db
 
@@ -106,7 +136,7 @@ $RECYCLE.BIN/
 
 ### Gradle ###
 .gradle
-build/
+/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -120,7 +150,12 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
-### Gradle Patch ###
-**/build/
+# # VS Code Specific Java Settings
+.classpath
+.project
+.settings/
+bin/
+imgui.ini
 
-# End of https://www.toptal.com/developers/gitignore/api/java,vscode,linux,macos,windows,gradle
+
+# End of https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>2021-frc-robot</name>
-	<comment>Project 2021-frc-robot created by Buildship.</comment>
+	<name>2021-FRC-robot</name>
+	<comment>Project 2021-FRC-robot created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -22,7 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1612127852107</id>
+			<id>1616983902243</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
