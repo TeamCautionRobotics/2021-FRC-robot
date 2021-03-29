@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.DropIntake;
+import frc.robot.commands.FlywheelRun;
 import frc.robot.commands.IndexBall;
 import frc.robot.commands.IntakeRun;
 import frc.robot.commands.ShootBall;
@@ -131,6 +132,7 @@ public class RobotContainer {
     new JoystickButton(leftJoystick, 2).whenActive(new DropIntake(intake));
     new JoystickButton(rightJoystick, 1).whileActiveContinuous(new IndexBall(shooter));
     new JoystickButton(leftJoystick, 1).whileActiveContinuous(new ShootBall(shooter));
+    new JoystickButton(leftJoystick, 4).whileActiveContinuous(new FlywheelRun(shooter));
 
   }
 

@@ -3,7 +3,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ShootBall extends CommandBase {
+public class FlywheelRun extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final Shooter shooter;
 
@@ -12,7 +12,7 @@ public class ShootBall extends CommandBase {
    *
    * @param shooter The subsystem used by this command.
    */
-  public ShootBall(Shooter shooter) {
+  public FlywheelRun(Shooter shooter) {
     this.shooter = shooter;
 
     addRequirements(shooter);
@@ -25,15 +25,11 @@ public class ShootBall extends CommandBase {
   @Override
   public void execute() {
     shooter.setFlywheelPower(0.7);
-    shooter.setIndexerPower(1.0);
   }
 
   @Override
   public void end(boolean interrupted) {
     shooter.setFlywheelPower(0.0);
-    shooter.setIndexerPower(0.0);
-    
-
   }
 
   @Override
