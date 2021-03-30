@@ -13,7 +13,7 @@ public class Indexer extends SubsystemBase {
 
   }
 
-  public void setIndexerMotor(double power) {
+  public void setIndexerPower(double power) {
     indexerMotor.set(power);
   }
 

@@ -1,26 +1,21 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.commands;
 
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Indexer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/** An example command that uses an example subsystem. */
 public class IndexBall extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final Shooter shooter;
+  private final Indexer indexer;
 
   /**
    * Creates a new IndexBall.
    *
    * @param shooter The subsystem used by this command.
    */
-  public IndexBall(Shooter shooter) {
-    this.shooter = shooter;
+  public IndexBall(Indexer indexer) {
+    this.indexer = indexer;
 
-    addRequirements(shooter);
+    addRequirements(indexer);
   }
 
   // Called when the command is initially scheduled.
@@ -31,13 +26,13 @@ public class IndexBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setIndexerPower(1.0);
+    indexer.setIndexerPower(1.0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.setIndexerPower(0.0);
+    indexer.setIndexerPower(0.0);
   }
 
   // Returns true when the command should end.
