@@ -8,19 +8,22 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Shooter extends SubsystemBase {
 
+  private final Limelight limelight;
+  private double limelightTa;
+
   private boolean motorPowerLimitActive = false;
   private double motorPowerLimitAmount = 1.0;
   private final double flywheelPIDOutput = 0;
 
   private final SpeedControllerGroup flywheelMotor;
   private final DigitalInput detectionSwitch;
-  private final PIDController flywheelPID;
 
   public Shooter(SpeedControllerGroup flywheelMotor, DigitalInput detectionSwitch) {
 
+    limelight = new Limelight();
+
     this.flywheelMotor = flywheelMotor;
     this.detectionSwitch = detectionSwitch;
-    flywheelPID = new PIDController(0, 0, 0);
     
   }
 
@@ -41,7 +44,7 @@ public class Shooter extends SubsystemBase {
     flywheelMotor.set(checkPowerLimit(power));
   }
 
-  public void setFlyweelPID() {
+  public void flyweelAuto() {
     flywheelMotor.set(checkPowerLimit(flywheelPIDOutput));
   }
 
@@ -51,7 +54,9 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    flywheelPIDOutput = flywheelPID.calculate(measurement);
+
+    limelightTa = limelight.getTa();
+
   }
 
   @Override

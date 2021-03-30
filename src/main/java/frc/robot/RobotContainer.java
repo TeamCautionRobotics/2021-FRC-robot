@@ -14,6 +14,7 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.misc2021.EnhancedJoystick;
 import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
@@ -47,6 +48,7 @@ public class RobotContainer {
 
   DriveBase driveBase;
   Indexer indexer;
+  Shooter shooter;
 
   ArcadeDrive arcadeDriveCommand;
 
