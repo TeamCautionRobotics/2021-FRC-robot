@@ -1,29 +1,34 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 
 
 public class Shooter extends SubsystemBase {
 
   private final Limelight limelight;
   private double limelightTa;
+  private double limelightTv;
+
+  private double flywheelAutoPower;
 
   private boolean motorPowerLimitActive = false;
   private double motorPowerLimitAmount = 1.0;
-  private final double flywheelPIDOutput = 0;
 
   private final SpeedControllerGroup flywheelMotor;
   private final DigitalInput detectionSwitch;
 
-  public Shooter(SpeedControllerGroup flywheelMotor, DigitalInput detectionSwitch) {
+  private final Encoder flywheelEncoder;
+
+  public Shooter(SpeedControllerGroup flywheelMotor, DigitalInput detectionSwitch, Encoder flywheelEncoder) {
 
     limelight = new Limelight();
 
     this.flywheelMotor = flywheelMotor;
     this.detectionSwitch = detectionSwitch;
+    this.flywheelEncoder = flywheelEncoder;
     
   }
 
@@ -45,7 +50,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void flyweelAuto() {
-    flywheelMotor.set(checkPowerLimit(flywheelPIDOutput));
+    flywheelMotor.set(checkPowerLimit(flywheelAutoPower));
   }
 
   public boolean getDetectionSwitch() {
@@ -55,7 +60,18 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
 
+    // Keep limeligh data up to date
     limelightTa = limelight.getTa();
+    limelightTv = limelight.getTv();
+
+    
+    if (limelightTa == 1) {
+
+
+
+    } else {                        // Run flywheel at half power if no target is detected for quick spool
+        flywheelAutoPower = 0.5;
+    }
 
   }
 
