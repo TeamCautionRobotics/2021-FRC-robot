@@ -13,14 +13,12 @@ public class Shooter extends SubsystemBase {
   private final double flywheelPIDOutput = 0;
 
   private final SpeedControllerGroup flywheelMotor;
-  private final SpeedControllerGroup indexerMotor;
   private final DigitalInput detectionSwitch;
   private final PIDController flywheelPID;
 
-  public Shooter(SpeedControllerGroup flywheelMotor, SpeedControllerGroup indexerMotor, DigitalInput detectionSwitch) {
+  public Shooter(SpeedControllerGroup flywheelMotor, DigitalInput detectionSwitch) {
 
     this.flywheelMotor = flywheelMotor;
-    this.indexerMotor = indexerMotor;
     this.detectionSwitch = detectionSwitch;
     flywheelPID = new PIDController(0, 0, 0);
     
@@ -45,10 +43,6 @@ public class Shooter extends SubsystemBase {
 
   public void setFlyweelPID() {
     flywheelMotor.set(checkPowerLimit(flywheelPIDOutput));
-  }
-
-  public void setIndexerPower(double power) {
-    indexerMotor.set(checkPowerLimit(power));
   }
 
   public boolean getDetectionSwitch() {
