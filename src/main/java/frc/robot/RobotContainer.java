@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.LimelightTest;
 import frc.robot.misc2021.EnhancedJoystick;
 import frc.robot.subsystems.DriveBase;
+import frc.robot.subsystems.Limelight;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
@@ -40,6 +42,7 @@ public class RobotContainer {
   VictorSP centerDrive1;
 
   DriveBase driveBase;
+  Limelight limelight;
 
   ArcadeDrive arcadeDriveCommand;
 
@@ -73,11 +76,15 @@ public class RobotContainer {
                               Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
                               Constants.CENTER_DRIVE_ENCODER_PORT_A, Constants.CENTER_DRIVE_ENCODER_PORT_B);
 
+    limelight = new Limelight();
+
     // Configure the button bindings
     configureButtonBindings();
 
     driveBase.setDefaultCommand(new ArcadeDrive(driveBase, () -> leftJoystick.getX(), () -> leftJoystick.getY(), 
     () -> rightJoystick.getX(), () -> rightJoystick.getY()));
+
+    limelight.setDefaultCommand(new LimelightTest(limelight));
   }
 
   /**
