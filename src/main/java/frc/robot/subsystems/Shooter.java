@@ -43,6 +43,10 @@ public class Shooter extends SubsystemBase {
     flywheelMotor.set(checkPowerLimit(power));
   }
 
+  public void setFlyweelPID() {
+    flywheelMotor.set(checkPowerLimit(flywheelPIDOutput));
+  }
+
   public void setIndexerPower(double power) {
     indexerMotor.set(checkPowerLimit(power));
   }
