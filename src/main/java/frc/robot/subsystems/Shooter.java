@@ -17,11 +17,11 @@ public class Shooter extends SubsystemBase {
   private final DigitalInput detectionSwitch;
   private final PIDController flywheelPID;
 
-  public Shooter(SpeedControllerGroup flywheelMotor, SpeedControllerGroup indexerMotor, int detectionSwitchPort) {
+  public Shooter(SpeedControllerGroup flywheelMotor, SpeedControllerGroup indexerMotor, DigitalInput detectionSwitch) {
 
     this.flywheelMotor = flywheelMotor;
     this.indexerMotor = indexerMotor;
-    detectionSwitch = new DigitalInput(detectionSwitchPort);
+    this.detectionSwitch = detectionSwitch;
     flywheelPID = new PIDController(0, 0, 0);
     
   }
