@@ -26,6 +26,8 @@ public final class Constants {
     public static final int CENTER_DRIVE_MOTOR_0_ID = 4;
     public static final int CENTER_DRIVE_MOTOR_1_CAN_ID = 30;
 
+    public static final int INDEXER_MOTOR_0_ID = 9;
+
     public static final int LEFT_DRIVE_ENCODER_PORT_A = 0;
     public static final int LEFT_DRIVE_ENCODER_PORT_B = 1;
 

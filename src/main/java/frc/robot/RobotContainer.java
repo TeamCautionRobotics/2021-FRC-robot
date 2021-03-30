@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.misc2021.EnhancedJoystick;
 import frc.robot.subsystems.DriveBase;
+import frc.robot.subsystems.Indexer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 
@@ -31,6 +32,7 @@ public class RobotContainer {
   SpeedControllerGroup leftDriveGroup;
   SpeedControllerGroup rightDriveGroup;
   SpeedControllerGroup centerDriveGroup;
+  SpeedControllerGroup indexerMotorGroup;
 
   VictorSP leftDrive0;
   WPI_VictorSPX leftDrive1;
@@ -41,7 +43,10 @@ public class RobotContainer {
   VictorSP centerDrive0;
   WPI_VictorSPX centerDrive1;
 
+  VictorSP indexerMotor0;
+
   DriveBase driveBase;
+  Indexer indexer;
 
   ArcadeDrive arcadeDriveCommand;
 
@@ -60,9 +65,12 @@ public class RobotContainer {
     centerDrive0 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_0_ID);
     centerDrive1 = new WPI_VictorSPX(Constants.CENTER_DRIVE_MOTOR_1_CAN_ID);
 
+    indexerMotor0 = new VictorSP(Constants.INDEXER_MOTOR_0_ID);
+
     leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
     rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
     centerDriveGroup = new SpeedControllerGroup(centerDrive0, centerDrive1);
+    indexerMotorGroup = new SpeedControllerGroup(indexerMotor0);
 
     rightDrive0.setInverted(true);
     rightDrive1.setInverted(true);
@@ -74,6 +82,8 @@ public class RobotContainer {
                               Constants.LEFT_DRIVE_ENCODER_PORT_A, Constants.LEFT_DRIVE_ENCODER_PORT_B,
                               Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
                               Constants.CENTER_DRIVE_ENCODER_PORT_A, Constants.CENTER_DRIVE_ENCODER_PORT_B);
+
+    indexer = new Indexer(indexerMotorGroup);
 
     // Configure the button bindings
     configureButtonBindings();
