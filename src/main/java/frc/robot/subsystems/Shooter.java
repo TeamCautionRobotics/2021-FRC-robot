@@ -31,6 +31,8 @@ public class Shooter extends SubsystemBase {
     this.flywheelMotor = flywheelMotor;
     this.detectionSwitch = detectionSwitch;
     this.flywheelEncoder = flywheelEncoder;
+
+    flywheelEncoder.setDistancePerPulse((4 * Math.PI)/1024.0);
     
   }
 
@@ -72,6 +74,9 @@ public class Shooter extends SubsystemBase {
     if (limelightTa == 1) {                                       // Calculate flywheel power using limelight if target is detected
       
       currentFlywheelRate = flywheelEncoder.getRate();
+
+      // Current default speed is 250 as limelightOffset is not implemented
+      // This will be updated to 150 (approx 1/2 speed) when it is
 
       if (currentFlywheelRate < (250 + limelightOffset)) {          // If we're below the desired speed, speed up
         flywheelAutoPower = 1.0;
