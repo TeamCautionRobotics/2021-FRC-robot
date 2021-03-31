@@ -13,6 +13,8 @@ public class Shooter extends SubsystemBase {
   private double limelightTv;
 
   private double flywheelAutoPower;
+  private double currentFlywheelRate;
+  private double limelightOffset;
 
   private boolean motorPowerLimitActive = false;
   private double motorPowerLimitAmount = 1.0;
@@ -60,16 +62,25 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
 
-    // Keep limeligh data up to date
+    // Keep limelight data up to date
     limelightTa = limelight.getTa();
     limelightTv = limelight.getTv();
 
-    
-    if (limelightTa == 1) {
+    // Calculate the limelight's speed offset. Zero for now
+    limelightOffset = 0;
 
+    if (limelightTa == 1) {                                       // Calculate flywheel power using limelight if target is detected
+      
+      currentFlywheelRate = flywheelEncoder.getRate();
 
+      if (currentFlywheelRate < (8 + limelightOffset)) {          // If we're below the desired speed, speed up
+        flywheelAutoPower = 1.0;
+      } else if (currentFlywheelRate > (9 + limelightOffset)) {   // If we're exceeding the desired speed, slow down
+        flywheelAutoPower = 0.0;
+      }
+      
 
-    } else {                        // Run flywheel at half power if no target is detected for quick spool
+    } else {                                                      // Run flywheel at half power if no target is detected for quick spool
         flywheelAutoPower = 0.5;
     }
 
