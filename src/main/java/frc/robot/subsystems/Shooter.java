@@ -78,9 +78,9 @@ public class Shooter extends SubsystemBase {
       // Current default speed is 250 as limelightOffset is not implemented
       // This will be updated to 150 (approx 1/2 speed) when it is
 
-      if (currentFlywheelRate < (250 + limelightOffset)) {          // If we're below the desired speed, speed up
+      if (currentFlywheelRate < (17539 + limelightOffset)) {          // If we're below the desired speed, speed up
         flywheelAutoPower = 1.0;
-      } else if (currentFlywheelRate > (255 + limelightOffset)) {   // If we're exceeding the desired speed, slow down
+      } else if (currentFlywheelRate > (17801 + limelightOffset)) {   // If we're exceeding the desired speed, slow down
         flywheelAutoPower = 0.0;
       }
       
