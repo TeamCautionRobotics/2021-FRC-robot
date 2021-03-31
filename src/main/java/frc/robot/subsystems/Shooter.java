@@ -73,9 +73,9 @@ public class Shooter extends SubsystemBase {
       
       currentFlywheelRate = flywheelEncoder.getRate();
 
-      if (currentFlywheelRate < (8 + limelightOffset)) {          // If we're below the desired speed, speed up
+      if (currentFlywheelRate < (250 + limelightOffset)) {          // If we're below the desired speed, speed up
         flywheelAutoPower = 1.0;
-      } else if (currentFlywheelRate > (9 + limelightOffset)) {   // If we're exceeding the desired speed, slow down
+      } else if (currentFlywheelRate > (255 + limelightOffset)) {   // If we're exceeding the desired speed, slow down
         flywheelAutoPower = 0.0;
       }
       
