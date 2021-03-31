@@ -68,8 +68,8 @@ public class Shooter extends SubsystemBase {
     limelightTa = limelight.getTa();
     limelightTv = limelight.getTv();
 
-    // Calculate the limelight's speed offset. Zero for now
-    limelightOffset = 0;
+    // Calculate the limelight's speed modifier based on target size
+    limelightOffset = (100.0 - limelightTa) / 100.0;
 
     if (limelightTa == 1) {                                       // Calculate flywheel power using limelight if target is detected
       
@@ -78,9 +78,9 @@ public class Shooter extends SubsystemBase {
       // Current default speed is 250 as limelightOffset is not implemented
       // This will be updated to 150 (approx 1/2 speed) when it is
 
-      if (currentFlywheelRate < (17539 + limelightOffset)) {          // If we're below the desired speed, speed up
+      if (currentFlywheelRate < (17539 * limelightOffset)) {          // If we're below the desired speed, speed up
         flywheelAutoPower = 1.0;
-      } else if (currentFlywheelRate > (17801 + limelightOffset)) {   // If we're exceeding the desired speed, slow down
+      } else if (currentFlywheelRate > (17801 * limelightOffset)) {   // If we're exceeding the desired speed, slow down
         flywheelAutoPower = 0.0;
       }
       
