@@ -107,6 +107,8 @@ public class MacroPlay extends CommandBase {
 
     intake.intakeWheelMotor.set(0);
 
+    commandFinished = false;
+
   }
 
   // Returns true when the command should end.
