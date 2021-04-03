@@ -11,10 +11,16 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.IntakeRun;
+import frc.robot.commands.MacroPlay;
+import frc.robot.commands.MacroRecord;
 import frc.robot.misc2021.EnhancedJoystick;
 import frc.robot.subsystems.DriveBase;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Macro;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -42,6 +48,8 @@ public class RobotContainer {
   WPI_VictorSPX centerDrive1;
 
   DriveBase driveBase;
+  Intake intake;
+  Macro macroSubsystem;
 
   ArcadeDrive arcadeDriveCommand;
 
@@ -75,6 +83,10 @@ public class RobotContainer {
                               Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
                               Constants.CENTER_DRIVE_ENCODER_PORT_A, Constants.CENTER_DRIVE_ENCODER_PORT_B);
 
+    macroSubsystem = new Macro();
+
+    intake = new Intake(intakeWheelMotor);
+
     // Configure the button bindings
     configureButtonBindings();
 
@@ -88,7 +100,13 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+    new JoystickButton(leftJoystick, 7).toggleWhenActive(new MacroRecord(macroSubsystem, driveBase, intake));
+    new JoystickButton(leftJoystick, 8).whenActive(new MacroPlay(macroSubsystem, driveBase, intake));
+    new JoystickButton(rightJoystick, 3).whenHeld(new IntakeRun(intake);
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -96,9 +114,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    
-    // Do nothing in autonomous.
 
-    return new InstantCommand();
+    return new MacroPlay(macroSubsystem, driveBase, intake);
+    
   }
 }
