@@ -12,13 +12,7 @@ public class Macro extends SubsystemBase {
   private String autoFile;
   private int autoNum;
 
-  private DriveBase driveBase;
-  private Intake intake;  
-
-  public Macro(DriveBase driveBase, Intake intake) {
-
-    this.driveBase = driveBase;
-    this.intake = intake;
+  public Macro() {
 
     autoNum = 00;
     autoFile = new String("/home/lvuser/auto" + autoNum + ".csv");
