@@ -31,6 +31,14 @@ public class Macro extends SubsystemBase {
     return autoFile;
   }
 
+  public int getAutoNum() {
+    return autoNum;
+  }
+
+  public void setAutoNum(int num) {
+    autoNum = num;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
