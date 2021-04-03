@@ -47,6 +47,7 @@ public class MacroRecord extends CommandBase {
   public void initialize() {
 
     startTime = System.currentTimeMillis();
+    macroSubsystem.setIsRecording(true);
 
   }
 
@@ -65,14 +66,10 @@ public class MacroRecord extends CommandBase {
 
         writer.append("," + intake.intakeWheelMotor.get() + "\n");
 
-
       }
     } catch (IOException ie) {
       ie.printStackTrace();
     }
-
-
-
   }
 
   // Called once the command ends or is interrupted.
@@ -87,6 +84,8 @@ public class MacroRecord extends CommandBase {
     } catch (IOException ie) {
       ie.printStackTrace();
     }
+
+    macroSubsystem.setIsRecording(false);
 
   }
 
