@@ -1,7 +1,11 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 
@@ -36,6 +40,16 @@ public class Shooter extends SubsystemBase {
     
   }
 
+  public Shooter(SpeedControllerGroup flywheelMotor) {
+
+    limelight = new Limelight();
+
+    this.flywheelMotor = flywheelMotor;
+    this.detectionSwitch = null;
+    this.flywheelEncoder = null;
+
+  }
+
   private double checkPowerLimit(double power) {
     if (motorPowerLimitActive) {
 
@@ -68,22 +82,16 @@ public class Shooter extends SubsystemBase {
     limelightTa = limelight.getTa();
     limelightTv = limelight.getTv();
 
+    SmartDashboard.putNumber("limelight tv", limelightTv);
+    SmartDashboard.putNumber("limelight ta", limelightTa);
+    SmartDashboard.putNumber("auto pwr", flywheelAutoPower);
+
     // Calculate the limelight's speed modifier based on target size
-    limelightOffset = (100.0 - limelightTa) / 100.0;
+    limelightOffset = limelightTa;
 
-    if (limelightTa == 1) {                                       // Calculate flywheel power using limelight if target is detected
-      
-      currentFlywheelRate = flywheelEncoder.getRate();
+    if (limelightTv == 1.0) {                                       // Calculate flywheel power using limelight if target is detected
 
-      // Current default speed is 250 as limelightOffset is not implemented
-      // This will be updated to 150 (approx 1/2 speed) when it is
-
-      if (currentFlywheelRate < (17539 * limelightOffset)) {          // If we're below the desired speed, speed up
-        flywheelAutoPower = 1.0;
-      } else if (currentFlywheelRate > (17801 * limelightOffset)) {   // If we're exceeding the desired speed, slow down
-        flywheelAutoPower = 0.0;
-      }
-      
+      flywheelAutoPower = (Math.pow((2.0238 * (185.05 * (limelightTa))), -0.735) + 53.518) / 100.0 ;
 
     } else {                                                      // Run flywheel at half power if no target is detected for quick spool
         flywheelAutoPower = 0.5;

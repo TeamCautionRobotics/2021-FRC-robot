@@ -8,15 +8,22 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
+import frc.robot.commands.AutoFlywheel;
+import frc.robot.commands.IndexBall;
+import frc.robot.commands.IntakeRun;
+import frc.robot.commands.RunFlywheel;
 import frc.robot.misc2021.EnhancedJoystick;
 import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -34,6 +41,8 @@ public class RobotContainer {
   SpeedControllerGroup rightDriveGroup;
   SpeedControllerGroup centerDriveGroup;
   SpeedControllerGroup indexerMotorGroup;
+  SpeedControllerGroup intakeMotorGroup;
+  SpeedControllerGroup flywheelMotorGroup;
 
   VictorSP leftDrive0;
   WPI_VictorSPX leftDrive1;
@@ -44,11 +53,17 @@ public class RobotContainer {
   VictorSP centerDrive0;
   WPI_VictorSPX centerDrive1;
 
+  VictorSP intakeMotor;
+
   VictorSP indexerMotor0;
+
+  VictorSP flywheelMotor0;
+  VictorSP flywheelMotor1;
 
   DriveBase driveBase;
   Indexer indexer;
   Shooter shooter;
+  Intake intake;
 
   ArcadeDrive arcadeDriveCommand;
 
@@ -59,20 +74,29 @@ public class RobotContainer {
     rightJoystick = new EnhancedJoystick(Constants.RIGHT_JOYSTICK_PORT);
 
     leftDrive0 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_0_ID);
-    leftDrive1 = new WPI_VictorSPX(Constants.LEFT_DRIVE_MOTOR_1_CAN_ID);
+    leftDrive1 = new WPI_VictorSPX(Constants.LEFT_DRIVE_MOTOR_1_ID);
 
     rightDrive0 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_0_ID);
-    rightDrive1 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_1_ID);
+    rightDrive1 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_1_CAN_ID);
 
     centerDrive0 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_0_ID);
     centerDrive1 = new WPI_VictorSPX(Constants.CENTER_DRIVE_MOTOR_1_CAN_ID);
 
+    intakeMotor = new VictorSP(Constants.INTAKE_WHEEL_MOTOR_ID);
+
     indexerMotor0 = new VictorSP(Constants.INDEXER_MOTOR_0_ID);
+
+    flywheelMotor0 = new VictorSP(Constants.FLYWHEEL_MOTOR_0_ID);
+    flywheelMotor1 = new VictorSP(Constants.FLYWHEEL_MOTOR_1_ID);
+
+    
 
     leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
     rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
     centerDriveGroup = new SpeedControllerGroup(centerDrive0, centerDrive1);
     indexerMotorGroup = new SpeedControllerGroup(indexerMotor0);
+    intakeMotorGroup = new SpeedControllerGroup(intakeMotor);
+    flywheelMotorGroup = new SpeedControllerGroup(flywheelMotor0, flywheelMotor1);
 
     rightDrive0.setInverted(true);
     rightDrive1.setInverted(true);
@@ -80,12 +104,20 @@ public class RobotContainer {
     centerDrive0.setInverted(true);
     centerDrive1.setInverted(true);
 
+    indexerMotor0.setInverted(true);
+
+    flywheelMotor0.setInverted(true);
+
     driveBase = new DriveBase(leftDriveGroup, rightDriveGroup, centerDriveGroup, 
                               Constants.LEFT_DRIVE_ENCODER_PORT_A, Constants.LEFT_DRIVE_ENCODER_PORT_B,
                               Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
                               Constants.CENTER_DRIVE_ENCODER_PORT_A, Constants.CENTER_DRIVE_ENCODER_PORT_B);
 
     indexer = new Indexer(indexerMotorGroup);
+
+    intake = new Intake(intakeMotorGroup);
+
+    shooter = new Shooter(flywheelMotorGroup);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -100,7 +132,14 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+    new JoystickButton(rightJoystick, 4).toggleWhenActive(new AutoFlywheel(shooter));
+    new JoystickButton(rightJoystick, 1).whileHeld(new IndexBall(indexer));
+    new JoystickButton(leftJoystick, 3).toggleWhenActive(new IntakeRun(intake));
+    new JoystickButton(rightJoystick, 5).toggleWhenActive(new RunFlywheel(shooter, () -> leftJoystick.getZ()));
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
