@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
 
-  private final SpeedControllerGroup intakeWheelMotor;
+  public final SpeedControllerGroup intakeWheelMotor;
 
   public Intake(SpeedControllerGroup intakeWheelMotor) {
     this.intakeWheelMotor = intakeWheelMotor;

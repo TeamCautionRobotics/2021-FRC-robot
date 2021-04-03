@@ -61,7 +61,9 @@ public class MacroRecord extends CommandBase {
 
         writer.append("," + driveBase.leftDrive.get());
         writer.append("," + driveBase.rightDrive.get());
-        writer.append("," + driveBase.centerDrive.get() + "\n");
+        writer.append("," + driveBase.centerDrive.get());
+
+        writer.append("," + intake.intakeWheelMotor.get() + "\n");
 
 
       }
