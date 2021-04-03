@@ -92,7 +92,7 @@ public class Shooter extends SubsystemBase {
     if (limelightTv == 1.0) {                                       // Calculate flywheel power using limelight if target is detected
 
       //flywheelAutoPower = (Math.pow((0.0249 * (6.2774 * (limelightTa))), -0.735) + 0.485) / 10.0;
-      double distanceReflection = 6.2774 * (Math.pow(limelightTa, -0.735));
+      double distanceReflection = 5.95 * (Math.pow(limelightTa, -0.735));
       flywheelAutoPower = ((0.0035 * Math.pow(distanceReflection, 2)) - 0.0066 * distanceReflection + 0.5374);
 
     } else {                                                      // Run flywheel at half power if no target is detected for quick spool
