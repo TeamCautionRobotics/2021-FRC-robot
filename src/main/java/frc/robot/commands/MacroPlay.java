@@ -25,7 +25,7 @@ public class MacroPlay extends CommandBase {
   private final Intake intake;
 
   private Scanner scanner;
-  private boolean onTime;
+  private boolean onTime = true;
   private double nextDouble;
 
   private long startTime;

@@ -113,7 +113,7 @@ public class RobotContainer {
   private void configureButtonBindings() throws IOException {
 
     new JoystickButton(leftJoystick, 7).toggleWhenActive(new MacroRecord(macroSubsystem, driveBase, intake));
-    new JoystickButton(leftJoystick, 8).whenActive(new MacroPlay(macroSubsystem, driveBase, intake));
+    new JoystickButton(leftJoystick, 6).whenActive(new MacroPlay(macroSubsystem, driveBase, intake));
     new JoystickButton(rightJoystick, 3).whenHeld(new IntakeRun(intake));
 
   }

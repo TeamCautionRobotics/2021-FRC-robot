@@ -46,6 +46,8 @@ public class MacroRecord extends CommandBase {
   @Override
   public void initialize() {
 
+    System.out.println("!!!! -- RECORD STARTED");
+
     startTime = System.currentTimeMillis();
     macroSubsystem.setIsRecording(true);
 
