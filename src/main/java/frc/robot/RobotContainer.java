@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.io.IOException;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -19,7 +21,6 @@ import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Macro;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -37,15 +38,18 @@ public class RobotContainer {
   SpeedControllerGroup leftDriveGroup;
   SpeedControllerGroup rightDriveGroup;
   SpeedControllerGroup centerDriveGroup;
+  SpeedControllerGroup intakeWheelGroup;
 
   VictorSP leftDrive0;
-  WPI_VictorSPX leftDrive1;
+  VictorSP leftDrive1;
 
   VictorSP rightDrive0;
-  VictorSP rightDrive1;
+  WPI_VictorSPX rightDrive1;
 
   VictorSP centerDrive0;
   WPI_VictorSPX centerDrive1;
+
+  VictorSP intakeWheelMotor;
 
   DriveBase driveBase;
   Intake intake;
@@ -53,17 +57,20 @@ public class RobotContainer {
 
   ArcadeDrive arcadeDriveCommand;
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  /** The container for the robot. Contains subsystems, OI devices, and commands. 
+   * @throws IOException*/
+  public RobotContainer() throws IOException {
 
     leftJoystick = new EnhancedJoystick(Constants.LEFT_JOYSTICK_PORT);
     rightJoystick = new EnhancedJoystick(Constants.RIGHT_JOYSTICK_PORT);
 
     leftDrive0 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_0_ID);
-    leftDrive1 = new WPI_VictorSPX(Constants.LEFT_DRIVE_MOTOR_1_CAN_ID);
+    leftDrive1 = new VictorSP(Constants.LEFT_DRIVE_MOTOR_1_ID);
 
     rightDrive0 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_0_ID);
-    rightDrive1 = new VictorSP(Constants.RIGHT_DRIVE_MOTOR_1_ID);
+    rightDrive1 = new WPI_VictorSPX(Constants.RIGHT_DRIVE_MOTOR_1_CAN_ID);
+
+    intakeWheelMotor = new VictorSP(Constants.INTAKE_WHEEL_MOTOR_ID);
 
     centerDrive0 = new VictorSP(Constants.CENTER_DRIVE_MOTOR_0_ID);
     centerDrive1 = new WPI_VictorSPX(Constants.CENTER_DRIVE_MOTOR_1_CAN_ID);
@@ -71,6 +78,8 @@ public class RobotContainer {
     leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
     rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
     centerDriveGroup = new SpeedControllerGroup(centerDrive0, centerDrive1);
+
+    intakeWheelGroup = new SpeedControllerGroup(intakeWheelMotor);
 
     rightDrive0.setInverted(true);
     rightDrive1.setInverted(true);
@@ -85,7 +94,7 @@ public class RobotContainer {
 
     macroSubsystem = new Macro();
 
-    intake = new Intake(intakeWheelMotor);
+    intake = new Intake(intakeWheelGroup);
 
     // Configure the button bindings
     configureButtonBindings();
@@ -99,12 +108,13 @@ public class RobotContainer {
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * @throws IOException
    */
-  private void configureButtonBindings() {
+  private void configureButtonBindings() throws IOException {
 
     new JoystickButton(leftJoystick, 7).toggleWhenActive(new MacroRecord(macroSubsystem, driveBase, intake));
     new JoystickButton(leftJoystick, 8).whenActive(new MacroPlay(macroSubsystem, driveBase, intake));
-    new JoystickButton(rightJoystick, 3).whenHeld(new IntakeRun(intake);
+    new JoystickButton(rightJoystick, 3).whenHeld(new IntakeRun(intake));
 
   }
 
@@ -112,10 +122,11 @@ public class RobotContainer {
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
+   * @throws IOException
    */
-  public Command getAutonomousCommand() {
+  public Command getAutonomousCommand() throws IOException {
 
     return new MacroPlay(macroSubsystem, driveBase, intake);
-    
+
   }
 }
