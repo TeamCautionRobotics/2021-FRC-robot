@@ -15,9 +15,9 @@ public class DriveBase extends SubsystemBase {
   private boolean motorPowerLimitActive = false;
   private double motorPowerLimitAmount = 0.0;
 
-  private final SpeedControllerGroup leftDrive;
-  private final SpeedControllerGroup rightDrive;
-  private final SpeedControllerGroup centerDrive;
+  public final SpeedControllerGroup leftDrive;
+  public final SpeedControllerGroup rightDrive;
+  public final SpeedControllerGroup centerDrive;
 
   private final Encoder leftEncoder;
   private final Encoder rightEncoder;
