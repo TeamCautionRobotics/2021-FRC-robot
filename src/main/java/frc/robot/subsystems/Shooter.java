@@ -4,9 +4,6 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 
 
@@ -24,16 +21,14 @@ public class Shooter extends SubsystemBase {
   private double motorPowerLimitAmount = 1.0;
 
   private final SpeedControllerGroup flywheelMotor;
-  private final DigitalInput detectionSwitch;
 
   private final Encoder flywheelEncoder;
 
-  public Shooter(SpeedControllerGroup flywheelMotor, DigitalInput detectionSwitch, Encoder flywheelEncoder) {
+  public Shooter(SpeedControllerGroup flywheelMotor, Encoder flywheelEncoder) {
 
     limelight = new Limelight();
 
     this.flywheelMotor = flywheelMotor;
-    this.detectionSwitch = detectionSwitch;
     this.flywheelEncoder = flywheelEncoder;
 
     flywheelEncoder.setDistancePerPulse((4 * Math.PI)/1024.0);
@@ -45,7 +40,6 @@ public class Shooter extends SubsystemBase {
     limelight = new Limelight();
 
     this.flywheelMotor = flywheelMotor;
-    this.detectionSwitch = null;
     this.flywheelEncoder = null;
 
   }
@@ -69,10 +63,6 @@ public class Shooter extends SubsystemBase {
 
   public void flyweelAuto() {
     flywheelMotor.set(checkPowerLimit(flywheelAutoPower));
-  }
-
-  public boolean getDetectionSwitch() {
-    return !detectionSwitch.get();
   }
 
   @Override
