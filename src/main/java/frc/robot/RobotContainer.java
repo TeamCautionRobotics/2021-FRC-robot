@@ -143,10 +143,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(rightJoystick, 4).toggleWhenActive(new AutoFlywheel(shooter));
+
     new JoystickButton(rightJoystick, 1).whileHeld(new IndexBall(indexer));
     new JoystickButton(rightJoystick, 2).whenPressed(new IndexBallAutoStop(indexer));
-    new JoystickButton(leftJoystick, 3).toggleWhenActive(new IntakeRun(intake));
+    new JoystickButton(leftJoystick, 1).whileHeld(new IntakeRun(intake));
+    new JoystickButton(rightJoystick, 3).toggleWhenActive(new AutoFlywheel(shooter));
     new JoystickButton(rightJoystick, 5).toggleWhenActive(new RunFlywheel(shooter, () -> leftJoystick.getZ()));
 
   }
