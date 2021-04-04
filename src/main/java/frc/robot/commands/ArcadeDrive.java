@@ -5,7 +5,10 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveBase;
+
 import java.util.function.DoubleSupplier;
+
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ArcadeDrive extends CommandBase {
@@ -19,6 +22,14 @@ public class ArcadeDrive extends CommandBase {
   private DoubleSupplier rightJoystickX;
   private DoubleSupplier rightJoystickY;
 
+  private double lastRightDrive;
+  private double lastLeftDrive;
+
+  private double rightDriveValue;
+  private double leftDriveValue;
+
+  private double maxChange;
+
   /**
    * Creates a new arcadeDrive command.
    *
@@ -26,7 +37,8 @@ public class ArcadeDrive extends CommandBase {
    */
   public ArcadeDrive(DriveBase driveBase, 
                     DoubleSupplier leftJoystickX, DoubleSupplier leftJoystickY, 
-                    DoubleSupplier rightJoystickX, DoubleSupplier rightJoystickY) {
+                    DoubleSupplier rightJoystickX, DoubleSupplier rightJoystickY,
+                    double maxChange) {
 
     this.driveBase = driveBase;
 
@@ -35,6 +47,9 @@ public class ArcadeDrive extends CommandBase {
 
     this.rightJoystickX = rightJoystickX;
     this.rightJoystickY = rightJoystickY;
+
+    this.maxChange = maxChange;
+
 
     addRequirements(driveBase);
   }
@@ -47,8 +62,31 @@ public class ArcadeDrive extends CommandBase {
   public void execute() {
 
     // Arcade drive
-    driveBase.setLeftPower(rightJoystickY.getAsDouble()+leftJoystickX.getAsDouble());
-    driveBase.setRightPower(rightJoystickY.getAsDouble()-leftJoystickX.getAsDouble());
+    rightDriveValue = rightJoystickY.getAsDouble()-leftJoystickX.getAsDouble();
+    leftDriveValue = rightJoystickY.getAsDouble()+leftJoystickX.getAsDouble();
+
+    if(Math.abs(leftDriveValue-lastLeftDrive) < maxChange) {
+      driveBase.setLeftPower(rightJoystickY.getAsDouble()+leftJoystickX.getAsDouble());
+    }
+    else if(leftDriveValue > lastLeftDrive){
+      driveBase.setLeftPower(lastLeftDrive + maxChange);
+    }
+    else{
+      driveBase.setLeftPower(leftDriveValue - maxChange);
+    }
+
+    if(Math.abs(leftDriveValue-lastLeftDrive) < maxChange) {
+     driveBase.setRightPower(rightJoystickY.getAsDouble()-leftJoystickX.getAsDouble());
+    }
+    else if(rightDriveValue > lastRightDrive){
+      driveBase.setRightPower(lastRightDrive + maxChange);
+    }
+    else{
+      driveBase.setRightPower(rightDriveValue - maxChange);
+    }
+
+    lastLeftDrive = leftDriveValue;
+    lastRightDrive = rightDriveValue;
     
     // Use right joystick's X axis for center drive
     driveBase.setCenterPower(rightJoystickX.getAsDouble());

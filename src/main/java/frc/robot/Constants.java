@@ -47,5 +47,6 @@ public final class Constants {
     public static final int CENTER_DRIVE_ENCODER_PORT_A = 4;
     public static final int CENTER_DRIVE_ENCODER_PORT_B = 5;
 
+    public static final double MAX_CHANGE = 0.04;
 
 }

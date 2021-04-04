@@ -132,7 +132,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     driveBase.setDefaultCommand(new ArcadeDrive(driveBase, () -> leftJoystick.getX(), () -> leftJoystick.getY(), 
-    () -> rightJoystick.getX(), () -> rightJoystick.getY()));
+    () -> rightJoystick.getX(), () -> rightJoystick.getY(), 0.04));
   }
 
   /**
