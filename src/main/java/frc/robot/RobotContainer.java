@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Victor;
@@ -60,6 +62,9 @@ public class RobotContainer {
   VictorSP flywheelMotor0;
   VictorSP flywheelMotor1;
 
+  Encoder flywheelEncoder;
+  DigitalInput shooterSwitch;
+
   DriveBase driveBase;
   Indexer indexer;
   Shooter shooter;
@@ -89,7 +94,8 @@ public class RobotContainer {
     flywheelMotor0 = new VictorSP(Constants.FLYWHEEL_MOTOR_0_ID);
     flywheelMotor1 = new VictorSP(Constants.FLYWHEEL_MOTOR_1_ID);
 
-    
+    flywheelEncoder = new Encoder(Constants.FLYWHEEL_ENCODER_PORT_A, Constants.FLYWHEEL_ENCODER_PORT_B);
+    shooterSwitch = new DigitalInput(Constants.SHOOTER_LIMIT_SWITCH_PORT);
 
     leftDriveGroup = new SpeedControllerGroup(leftDrive0, leftDrive1);
     rightDriveGroup = new SpeedControllerGroup(rightDrive0, rightDrive1);
@@ -113,11 +119,11 @@ public class RobotContainer {
                               Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
                               Constants.CENTER_DRIVE_ENCODER_PORT_A, Constants.CENTER_DRIVE_ENCODER_PORT_B);
 
-    indexer = new Indexer(indexerMotorGroup);
+    indexer = new Indexer(indexerMotorGroup, shooterSwitch);
 
     intake = new Intake(intakeMotorGroup);
 
-    shooter = new Shooter(flywheelMotorGroup);
+    shooter = new Shooter(flywheelMotorGroup, flywheelEncoder);
 
     // Configure the button bindings
     configureButtonBindings();

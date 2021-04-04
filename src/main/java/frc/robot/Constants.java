@@ -33,6 +33,11 @@ public final class Constants {
 
     public static final int INDEXER_MOTOR_0_ID = 9;
 
+    public static final int SHOOTER_LIMIT_SWITCH_PORT = 8;
+
+    public static final int FLYWHEEL_ENCODER_PORT_A = 2;
+    public static final int FLYWHEEL_ENCODER_PORT_B = 3;
+
     public static final int LEFT_DRIVE_ENCODER_PORT_A = 0;
     public static final int LEFT_DRIVE_ENCODER_PORT_B = 1;
 
