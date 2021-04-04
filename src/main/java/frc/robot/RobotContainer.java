@@ -115,6 +115,8 @@ public class RobotContainer {
 
     flywheelMotor0.setInverted(true);
 
+    intakeMotor.setInverted(true);
+
     driveBase = new DriveBase(leftDriveGroup, rightDriveGroup, centerDriveGroup, 
                               Constants.LEFT_DRIVE_ENCODER_PORT_A, Constants.LEFT_DRIVE_ENCODER_PORT_B,
                               Constants.RIGHT_DRIVE_ENCODER_PORT_A, Constants.RIGHT_DRIVE_ENCODER_PORT_B,
