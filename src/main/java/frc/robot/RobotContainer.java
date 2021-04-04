@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoFlywheel;
 import frc.robot.commands.IndexBall;
+import frc.robot.commands.IndexBallAutoStop;
 import frc.robot.commands.IntakeRun;
 import frc.robot.commands.RunFlywheel;
 import frc.robot.misc2021.EnhancedJoystick;
@@ -142,6 +143,7 @@ public class RobotContainer {
 
     new JoystickButton(rightJoystick, 4).toggleWhenActive(new AutoFlywheel(shooter));
     new JoystickButton(rightJoystick, 1).whileHeld(new IndexBall(indexer));
+    new JoystickButton(rightJoystick, 2).whenPressed(new IndexBallAutoStop(indexer));
     new JoystickButton(leftJoystick, 3).toggleWhenActive(new IntakeRun(intake));
     new JoystickButton(rightJoystick, 5).toggleWhenActive(new RunFlywheel(shooter, () -> leftJoystick.getZ()));
 
