@@ -25,6 +25,7 @@ public class LimeLightPathSelector extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+      limelight.setPipeline(1);
       if (limelight.getTx() > 0){
         autonomousRouteDataWrapperClass.setIsRunningAutonomousA(true);
       }
