@@ -15,16 +15,19 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.AutoFlywheel;
+import frc.robot.commands.CompleteAutonomousCommandGroup;
 import frc.robot.commands.IndexBall;
 import frc.robot.commands.IndexBallAutoStop;
 import frc.robot.commands.IntakeRun;
 import frc.robot.commands.RunFlywheel;
+import frc.robot.misc2021.AutonomousRouteDataWrapperClass;
 import frc.robot.misc2021.EnhancedJoystick;
 import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandGroupBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -72,6 +75,9 @@ public class RobotContainer {
   Intake intake;
 
   ArcadeDrive arcadeDriveCommand;
+
+  AutonomousRouteDataWrapperClass autonomousRouteDataWrapperClass;
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -128,11 +134,13 @@ public class RobotContainer {
 
     shooter = new Shooter(flywheelMotorGroup, flywheelEncoder);
 
+    autonomousRouteDataWrapperClass = new AutonomousRouteDataWrapperClass();
+
     // Configure the button bindings
     configureButtonBindings();
 
     driveBase.setDefaultCommand(new ArcadeDrive(driveBase, () -> leftJoystick.getX(), () -> leftJoystick.getY(), 
-    () -> rightJoystick.getX(), () -> rightJoystick.getY(), 0.04));
+    () -> rightJoystick.getX(), () -> rightJoystick.getY(), 0.04, 0.04));
   }
 
   /**
@@ -161,6 +169,6 @@ public class RobotContainer {
     
     // Do nothing in autonomous.
 
-    return new InstantCommand();
+    return new CompleteAutonomousCommandGroup(driveBase, intake, autonomousRouteDataWrapperClass);
   }
 }
